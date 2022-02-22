@@ -122,13 +122,34 @@ USE_L10N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
+AWS_REGION = 'ap-northeast-2'
+AWS_STORAGE_BUCKET_NAME = 'image-mellow'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_HOST = 's3.%s.amazonaws.com' % AWS_REGION
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_ACCESS_KEY_ID = 'AKIARBZYMSPWD6MYGVWX'
+AWS_SECRET_ACCESS_KEY = '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'
 
-STATIC_URL = '/static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+# Media Setting
+MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
+DEFAULT_FILE_STORAGE = 'config.storages.MediaStorage'
+MEDIAFILES_LOCATION = 'media'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Static Setting
+STATIC_URL = "https://%s/static/" % AWS_S3_CUSTOM_DOMAIN
+STATICFILES_STORAGE = 'config.storages.StaticStorage'
+STATICFILES_LOCATION = 'static'
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
