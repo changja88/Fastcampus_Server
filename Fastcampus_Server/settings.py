@@ -29,6 +29,9 @@ ALLOWED_HOSTS = [
     'ec2-54-180-107-210.ap-northeast-2.compute.amazonaws.com',
     '127.0.0.1',
     'localhost',
+    'mellowcode.org',
+    '54.180.107.210',
+    '*'
 ]
 
 
