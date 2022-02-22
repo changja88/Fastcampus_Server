@@ -19,5 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('json/', include('json_test.urls')),
-    path('instagram/', include('instagram.urls'))
+    path('instagram/', include('instagram.urls')),
+    path('user/', include('user.urls')),
+
 ]

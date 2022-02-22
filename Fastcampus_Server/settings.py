@@ -42,8 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'storages',
+    'rest_framework',
+    'rest_framework.authtoken',
+
+
     'json_test',
     'instagram',
+    'user',
 ]
 
 MIDDLEWARE = [
