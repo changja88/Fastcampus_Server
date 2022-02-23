@@ -1,0 +1,41 @@
+ssh -i "fastcampus.pem" ubuntu@ec2-54-180-107-210.ap-northeast-2.compute.amazonaws.com
+
+//gunicorn 설정 파일
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/project/Fastcampus_Server
+ExecStart=/home/ubuntu/project/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/project/fastcampus.sock Fastcampus_Serever.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+// ngins 설정파일(sudo vim /etc/nginx/sites-available/Fastcampust_Server)
+server {
+    listen 80;
+    server_name mellowcode.org www.mellowcode.org;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/project;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/project/fastcampus.sock;
+    }
+}
+//git pull 이후 실행
+sudo systemctl daemon-reload
+sudo systemctl restart gunicorn
+sudo nginx -t && sudo systemctl restart nginx
+
+// 기타 명령어
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+sudo systemctl status gunicorn
+sudo nginx -t && sudo systemctl restart nginx

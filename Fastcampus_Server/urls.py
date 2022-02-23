@@ -21,5 +21,6 @@ urlpatterns = [
     path('json/', include('json_test.urls')),
     path('instagram/', include('instagram.urls')),
     path('user/', include('user.urls')),
+    path('youtube/', include('youtube.urls')),
 
 ]

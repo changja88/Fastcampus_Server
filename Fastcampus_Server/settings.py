@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'json_test',
     'instagram',
     'user',
+    'youtube',
 ]
 
 MIDDLEWARE = [
