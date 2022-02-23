@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'instagram',
     'user',
     'youtube',
+    'melon',
+
 ]
 
 MIDDLEWARE = [

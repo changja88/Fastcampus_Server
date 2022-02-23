@@ -22,5 +22,6 @@ urlpatterns = [
     path('instagram/', include('instagram.urls')),
     path('user/', include('user.urls')),
     path('youtube/', include('youtube.urls')),
+    path('melon/', include('melon.urls')),
 
 ]
