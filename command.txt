@@ -39,3 +39,5 @@ sudo systemctl start gunicorn
 sudo systemctl enable gunicorn
 sudo systemctl status gunicorn
 sudo nginx -t && sudo systemctl restart nginx
+
+//git conflict 발생시
