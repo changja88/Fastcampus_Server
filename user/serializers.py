@@ -15,6 +15,11 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField
+
     class Meta:
         model = User
-        fields = ('id','username')
+        fields = ('id', 'username', 'profile')
+
+    def get_profile(self, obj):
+        return obj.profile

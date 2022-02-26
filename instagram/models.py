@@ -10,3 +10,4 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=250, blank=True, null=True)
     image = models.ImageField(upload_to='Post', blank=True, null=True)
+    like_count = models.PositiveIntegerField(default=0)
