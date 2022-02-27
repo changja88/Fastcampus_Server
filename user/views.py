@@ -9,8 +9,10 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from user.serializers import UserSerializer
+from user.models import Profile
+from user.serializers import UserSerializer, ProfileSerializer
 
 
 @csrf_exempt
@@ -31,6 +33,9 @@ def SingupAPI(request):
             )
             token = Token.objects.create(user=user)
             auth.login(request, user)
+
+            Profile.objects.get_or_create(user_id=user.id)
+
             return JsonResponse({
                 "username": username,
                 "token": token.key
@@ -70,3 +75,14 @@ class UserInfoAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class ProfileAPIView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    lookup_field = 'user_id'
+
+    def perform_update(self, serializer):
+        user = self.request.user
+        serializer.save(user_id=user.id)

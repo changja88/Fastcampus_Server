@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, permissions
 from rest_framework.response import Response
@@ -31,3 +32,13 @@ class InstagramPostAll(APIView):
         serializer = PostSerializer(post_list_all, many=True)
         return Response(serializer.data)
 
+
+class InstagramPostLike(APIView):
+
+    def post(self, request, post_id):
+        post = Post.objects.get(id=post_id)
+        post.like_count += 1
+        post.save()
+        return HttpResponse(
+            status=200
+        )

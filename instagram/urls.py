@@ -16,5 +16,11 @@ urlpatterns = [
 
     path('post/list/all/',
          views.InstagramPostAll.as_view(),
-         name='instagram-list-all')
+         name='instagram-list-all'),
+
+    path('post/like/<int:post_id>/',
+         views.InstagramPostLike.as_view(),
+         name='instagram-post-like'
+         )
+
 ]

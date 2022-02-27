@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from user.models import Profile
+
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,12 +16,22 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return user
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):
-    profile = serializers.SerializerMethodField
+    profile = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ('id', 'username', 'profile')
 
     def get_profile(self, obj):
-        return obj.profile
+        try:
+            owner_profile = Profile.objects.get(user_id=obj.id)
+            return ProfileSerializer(owner_profile).data
+        except:
+            return None
