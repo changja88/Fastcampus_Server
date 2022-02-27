@@ -37,6 +37,7 @@ def SingupAPI(request):
             Profile.objects.get_or_create(user_id=user.id)
 
             return JsonResponse({
+                "id" : user.id,
                 "username": username,
                 "token": token.key
             })
@@ -58,6 +59,7 @@ def LoginAPI(request):
             auth.login(request, user)
             token = Token.objects.get(user=user)
             return JsonResponse({
+                "id" : user.id,
                 "token": token.key
             })
 
