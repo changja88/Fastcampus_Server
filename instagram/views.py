@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, permissions
 from rest_framework.response import Response
@@ -39,6 +39,7 @@ class InstagramPostLike(APIView):
         post = Post.objects.get(id=post_id)
         post.like_count += 1
         post.save()
-        return HttpResponse(
-            status=201
-        )
+        return JsonResponse({
+            "status": 201,
+            "msg": "좋아요 성공",
+        })
