@@ -40,5 +40,5 @@ class InstagramPostLike(APIView):
         post.like_count += 1
         post.save()
         return HttpResponse(
-            status=200
+            status=201
         )
