@@ -23,5 +23,6 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('youtube/', include('youtube.urls')),
     path('melon/', include('melon.urls')),
+    path('to-do/', include('to_do.urls')),
 
 ]

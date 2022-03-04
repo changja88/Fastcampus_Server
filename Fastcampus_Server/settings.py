@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'user',
     'youtube',
     'melon',
+    'to_do',
 
 ]
 
