@@ -19,6 +19,19 @@ class ToDoSearchView(APIView):
         return Response(ToDoSerializer(result, many=True).data)
 
 
+class ToDoCompleteView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, requeset, id):
+        todo = ToDo.objects.get(user=requeset.user, id=id)
+        if todo.is_complete:
+            todo.is_complete = False
+        else:
+            todo.is_complete = True
+        todo.save()
+        return HttpResponse(status=200)
+
+
 class ToDoView(APIView):
     permission_classes = [IsAuthenticated]
 
