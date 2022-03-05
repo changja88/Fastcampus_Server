@@ -15,7 +15,7 @@ class ToDoSearchView(APIView):
 
     def get(self, request):
         keyword = request.GET.get('keyword', "")
-        result = ToDo.objects.filter(user=request.user, content__contains=keyword)
+        result = ToDo.objects.filter(user=request.user, content__contains=keyword).order_by('created')
         return Response(ToDoSerializer(result, many=True).data)
 
 
@@ -40,7 +40,7 @@ class ToDoView(APIView):
         abc = ToDo.objects.filter(user=user).all()
         for a in abc:
             print(a.content)
-        return Response(ToDoSerializer(ToDo.objects.filter(user=user).all(), many=True).data)
+        return Response(ToDoSerializer(ToDo.objects.filter(user=user).all().order_by('created'), many=True).data)
 
     def post(self, request):
         user = request.user
